@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-public class ReverseWeightComparator implements Comparator<Term>{
+public class ReverseWeightComparator<T> implements Comparator<Term>{
 	
 	@Override
 	public int compare(Term obj1, Term obj2){
