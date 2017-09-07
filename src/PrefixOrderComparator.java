@@ -1,5 +1,6 @@
 import java.util.Comparator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class PrefixOrderComparator implements Comparator<Term>{
@@ -15,14 +16,13 @@ public class PrefixOrderComparator implements Comparator<Term>{
 
 		String Q1 = obj1.query;
 		String Q2 = obj2.query;
-		int Q1Length = Q1.length() - 1;
-		int Q2Length = Q2.length() - 1;
+		int Q1Length = Q1.length();
+		int Q2Length = Q2.length();
 		int returnVal = 0;
-		int lengthAdj;;
+		int lengthAdj;
 		
 		for(int i = 0; i < numChars; i++){
 			lengthAdj = i + 1;
-			
 			if(lengthAdj > Q1Length){
 				returnVal = -1;
 				break;
@@ -41,7 +41,7 @@ public class PrefixOrderComparator implements Comparator<Term>{
 				}
 				continue;
 			} else if(Q1Char < Q2Char){
-				returnVal = -1;;
+				returnVal = -1;
 				break;
 			} else if(Q1Char > Q2Char){
 				returnVal = 1;
@@ -53,20 +53,20 @@ public class PrefixOrderComparator implements Comparator<Term>{
 	
 	// Unit testing
 	public static void main(String[] args){
-		ArrayList<Term> terms = new ArrayList<>();
-		terms.add(new Term("abcdefg", 1.0));
-		terms.add(new Term("abc", 1.0));
-		terms.add(new Term("abcde", 1.0));
-		terms.add(new Term("ab", 1.0));
-		terms.add(new Term("abcdef", 1.0));
-		terms.add(new Term("abcd", 1.0));
-		terms.add(new Term("a", 1.0));
-		
-		Collections.sort(terms, new PrefixOrderComparator(3));
+		Term[] arr = new Term[5];
+		arr[0] = new Term("company", 1.0);
+		arr[1] = new Term("complete", 1.0);
+		arr[2] = new Term("companion", 1.0);
+		arr[3] = new Term("completely", 1.0);
+		arr[4] = new Term("comply", 1.0);
 
-		for(Term t : terms){
-			System.out.println(t.query);
-		}
+		Term key = new Term("compl", 1.0);
+		int keyLen = key.query.length();
+		
+     	Comparator comp = new PrefixOrderComparator(keyLen);
+     	
+     	System.out.println(comp.compare(key, arr[2]));
+	
 		
 	}
 }

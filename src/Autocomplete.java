@@ -15,7 +15,7 @@ public class Autocomplete {
 		this.terms = terms; 
 	}
 	
-	// Return all terms that start with the given prefix, in descending order of weight
+	// Return all terms that start with the given prefix, in descending order of weight: O(logN + NlogN)
 	public Term[] allMatches(String prefix){
 		if(prefix == null)
 			throw new NullPointerException();

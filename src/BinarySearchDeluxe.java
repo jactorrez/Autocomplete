@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class BinarySearchDeluxe {
@@ -16,19 +17,18 @@ public class BinarySearchDeluxe {
 		
 		while(lo < hi){
 			int mid = (lo + (hi - 1)) / 2;
-			
 			if(comparator.compare(key, a[mid]) <= 0){
 				hi = mid;
 			} else{
 				lo = mid + 1;
 			}
 		}
+		
 		return lo;
 	}
 	
 	// Return the index of the last key in a[] that equals the search key, or -1 if no such key
 	public static <Key> int lastIndexOf(Key[] a, Key key, Comparator<Key> comparator){
-		System.out.println("Running...");
 		if(a == null || key == null || comparator == null)
 			throw new NullPointerException();	
 		
@@ -52,9 +52,24 @@ public class BinarySearchDeluxe {
 		return hi;
 	}
 	
-	// unit test
+	// Unit test
 	public static void main(String[] args){
-		Integer[] arr = {0,3,4,4,4,4,4,4,4,4,4,5};
-      	BinarySearchDeluxe.lastIndexOf(arr, new Integer(3), new NaturalComparator<Integer>());	
+		Term[] arr = new Term[5];
+		arr[0] = new Term("company", 1.0);
+		arr[1] = new Term("complete", 1.0);
+		arr[2] = new Term("companion", 1.0);
+		arr[3] = new Term("completely", 1.0);
+		arr[4] = new Term("comply", 1.0);
+		
+		Arrays.sort(arr);
+		for(Term t : arr){
+			System.out.println(t.query);
+		}
+		
+		Term key = new Term("compa", 1.0);
+		int keyLen = key.query.length();
+		
+     	int index = BinarySearchDeluxe.lastIndexOf(arr, key, new PrefixOrderComparator(keyLen));	
+     	System.out.println(index);
 	}
 }
