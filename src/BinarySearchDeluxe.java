@@ -1,5 +1,9 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class BinarySearchDeluxe {
 	
@@ -14,7 +18,7 @@ public class BinarySearchDeluxe {
 		
 		int lo = 0;
 		int hi = a.length;
-		
+
 		while(lo < hi){
 			int mid = (lo + (hi - 1)) / 2;
 			if(comparator.compare(key, a[mid]) <= 0){
@@ -22,6 +26,10 @@ public class BinarySearchDeluxe {
 			} else{
 				lo = mid + 1;
 			}
+		}
+		
+		if((lo == a.length) || (comparator.compare(key, a[lo]) != 0)){
+			return -1;
 		}
 		
 		return lo;
@@ -54,22 +62,26 @@ public class BinarySearchDeluxe {
 	
 	// Unit test
 	public static void main(String[] args){
-		Term[] arr = new Term[5];
-		arr[0] = new Term("company", 1.0);
-		arr[1] = new Term("complete", 1.0);
-		arr[2] = new Term("companion", 1.0);
-		arr[3] = new Term("completely", 1.0);
-		arr[4] = new Term("comply", 1.0);
-		
-		Arrays.sort(arr);
-		for(Term t : arr){
-			System.out.println(t.query);
+		try(Scanner scan = new Scanner(new BufferedReader(new FileReader("cities.txt")))) {
+			int size = scan.nextInt();
+			Term[] terms = new Term[size];
+			
+			for(int i = 0; i < size; i++){
+				double weight = (Long.valueOf(scan.nextLong())).doubleValue();
+				String query = scan.nextLine().trim();
+				terms[i] = new Term(query, weight);
+			}
+			
+			Arrays.sort(terms);
+
+			Term key = new Term("W", 0.0);
+			int keyLen = key.query.length();
+			
+	     	int index = BinarySearchDeluxe.firstIndexOf(terms, key, new PrefixOrderComparator(keyLen));	
+	     	System.out.println(index);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
 		
-		Term key = new Term("compa", 1.0);
-		int keyLen = key.query.length();
-		
-     	int index = BinarySearchDeluxe.lastIndexOf(arr, key, new PrefixOrderComparator(keyLen));	
-     	System.out.println(index);
 	}
 }

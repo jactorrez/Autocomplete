@@ -20,7 +20,7 @@ public class Term implements Comparable<Term>{
 	
 	// Compare the terms in descending order by weight
 	public static Comparator<Term> byReverseWeightOrder(){
-		return new ReverseWeightComparator();
+		return new ReverseWeightComparator<Term>();
 	}
 	
 	// Compare the terms in lexicographic order but using only the first r characters of each query

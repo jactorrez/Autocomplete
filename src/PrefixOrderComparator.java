@@ -1,7 +1,4 @@
 import java.util.Comparator;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class PrefixOrderComparator implements Comparator<Term>{
 	
@@ -23,6 +20,7 @@ public class PrefixOrderComparator implements Comparator<Term>{
 		
 		for(int i = 0; i < numChars; i++){
 			lengthAdj = i + 1;
+			
 			if(lengthAdj > Q1Length){
 				returnVal = -1;
 				break;
@@ -45,6 +43,7 @@ public class PrefixOrderComparator implements Comparator<Term>{
 				break;
 			} else if(Q1Char > Q2Char){
 				returnVal = 1;
+				break;
 			}
 		}	
 		
@@ -60,10 +59,10 @@ public class PrefixOrderComparator implements Comparator<Term>{
 		arr[3] = new Term("completely", 1.0);
 		arr[4] = new Term("comply", 1.0);
 
-		Term key = new Term("compl", 1.0);
+		Term key = new Term("poop", 1.0);
 		int keyLen = key.query.length();
 		
-     	Comparator comp = new PrefixOrderComparator(keyLen);
+     	Comparator<Term> comp = new PrefixOrderComparator(keyLen);
      	
      	System.out.println(comp.compare(key, arr[2]));
 	
